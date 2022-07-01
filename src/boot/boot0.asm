@@ -1,6 +1,10 @@
 [ORG 0x7C00]
+
+;BITS 16 == Init 16 bit mode
 [BITS 16]
 
+
+;define global function 'start'
 global start
 start:
 
@@ -62,11 +66,13 @@ LoadGDT:
 	mov fs, ax
 	mov gs, ax
 	mov ss, ax
-
+	
+	;Gehe zu InitProtected
 	jmp CODE_SEG:InitProtected
 
 	RET
 
+;switch to 32bit mode (x86)
 [BITS 32]
 InitProtected:
 
@@ -78,8 +84,13 @@ InitProtected:
 
 
 ; VARIABLES
+;Festplatten adresse ??
 BOOT_DRIVE: db 0
+
+;Weiß ich nicht
 KERNEL_OFFSET equ 0x1000
+
+;Sektoren von Festplatte ??
 SECTORS equ 15
 
 ; GDT
@@ -111,4 +122,6 @@ CODE_SEG equ gdt_cs - gdt
 DATA_SEG equ gdt_ds - gdt
 
 times 510 -( $ - $$ ) db 0
+
+;Tell system firmware this image is bootable
 dw 0xAA55
