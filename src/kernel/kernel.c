@@ -3,6 +3,8 @@
 #include "graphics/display.h"
 #include "drivers/rtc.h"
 
+
+/* Called from bootloader 
 void initKernel() {
 	printLine("--- START KERNEL INITIALIZATION ---");
 	printLine("GDT: Computer running in Portected Mode.");
